@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".controller.SettingsActivity"
+    tools:showIn="@layout/activity_settings">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_info"
+        android:text="@string/text_info"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_info"
+        android:id="@+id/spinner"
+        android:spinnerMode="dropdown">
+    </Spinner>
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:id="@+id/text_radius"
+        android:text="@string/text_radius"/>
+    <EditText
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:layout_below="@+id/text_radius"
+    android:id="@+id/editRadius"
+    android:text="@string/editText_radius"
+    android:singleLine="true"
+    android:inputType="textCapWords"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editRadius"
+        android:id="@+id/checkbox_latlon"
+        android:text="@string/chk_latlon"
+        />
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkbox_latlon"
+        android:id="@+id/text_gps"
+        android:text="@string/text_gps"/>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/text_gps"
+        android:id="@+id/editLat"
+        android:text="@string/editText_lat"
+        android:singleLine="true"
+        android:inputType="textCapWords"/>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/editLat"
+        android:id="@+id/editLon"
+        android:text="@string/editText_lon"
+        android:singleLine="true"
+        android:inputType="textCapWords"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_save"
+        android:layout_below="@+id/editLon"
+        android:text="save"/>
+
+</RelativeLayout>

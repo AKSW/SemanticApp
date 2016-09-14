@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SemanticApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_run">Run Query</string>
+    <string name="action_clear">Clear Database</string>
+
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_semantic">Semantic</string>
+    <string name="title_activity_main6">Main6Activity</string>
+    <string name="title_activity_permission_check">PermissionCheck</string>
+    <string name="title_activity_map_view">MapView</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="editText_radius">1</string>
+
+    <string name="editText_lat">51.3397</string>
+    <string name="editText_lon">12.3731</string>
+
+    <string name="chk_latlon">Use GPS</string>
+
+    <string name="text_gps">If you disable the GPS checkbox the following Coordinates are used</string>
+    <string name="text_radius">Please Enter Search Radius in km</string>
+    <string name="text_info">Please choose one configfile from below</string>
+</resources>

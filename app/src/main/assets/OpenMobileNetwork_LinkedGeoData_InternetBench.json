@@ -1,0 +1,10 @@
+{
+	"service": "http://www.openmobilenetwork.org:8890/sparql/",
+	"query": "Prefix ogc: <http://www.opengis.net/ont/geosparql#>  Prefix geom: <http://geovocab.org/geometry#>  Prefix lgdo: <http://linkedgeodata.org/ontology/> Select distinct ?s Where {  ?s ?p ?o. ?s <http://www.openmobilenetwork.org/ontology/covers> ?lgd . ?s geo:lat ?lat . ?s geo:long ?long . FILTER ( (?long >= ( myLon - myLonRadius )) && ( ?long <= ( myLon + myLonRadius )) && (?lat >= ( myLat - myLatRadius )) && (?lat <= ( myLat + myLatRadius )))   } LIMIT 500 ",
+	"queryBuilderId":1,
+	"routineId": 1,
+	"linkedDataUri":"http://www.openmobilenetwork.org/ontology/covers",
+	"linkedDataService": "http://linkedgeodata.org/sparql",
+	"linkedDataDomainName":"linkedgeodata.org",
+	"linkedDataFilter":"http://linkedgeodata.org/ontology/Bench"
+}

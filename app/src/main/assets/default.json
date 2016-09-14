@@ -1,0 +1,6 @@
+{
+	"service": "http://linkedgeodata.org/sparql",
+	"query": "Prefix ogc: <http://www.opengis.net/ont/geosparql#>  Prefix geom: <http://geovocab.org/geometry#>  Prefix lgdo: <http://linkedgeodata.org/ontology/> Select ?s ?geo Where {  ?s  a lgdo:School ; rdfs:label ?schoolLabel ; geom:geometry [ ogc:asWKT ?geo ] .  Filter (  bif:st_intersects (?geo, bif:st_point ( %s , %s ), %s ) ) .  }  ",
+	"queryBuilderId":0,
+	"routineId": 0
+}
