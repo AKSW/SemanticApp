@@ -1,0 +1,6 @@
+{
+	"service": "http://dbpedia.org/",
+	"query": "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX dbo: <http://dbpedia.org/ontology/> SELECT ?s WHERE { ?s geo:lat ?lat . ?s geo:long ?long . FILTER ( (?long >= ( myLon - myLonRadius )) && ( ?long <= ( myLon + myLonRadius )) && (?lat >= ( myLat - myLatRadius )) && (?lat <= ( myLat + myLatRadius ))) }",
+	"queryBuilderId":1,
+	"routineId": 0
+}

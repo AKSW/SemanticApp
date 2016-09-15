@@ -1,6 +1,5 @@
 package com.example.polipo.semanticapp.controller;
 
-import com.example.polipo.semanticapp.model.GPSTracker;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,9 +18,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.polipo.semanticapp.R;
-import com.example.polipo.semanticapp.model.GPSTracker;
 import com.example.polipo.semanticapp.model.Resource;
 import com.example.polipo.semanticapp.model.SemanticWebModul;
+import com.example.polipo.semanticapp.model.GPSTracker;
+
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.util.GeoPoint;
@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 import static org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK;
 
@@ -334,21 +335,22 @@ public class MainMenu extends AppCompatActivity {
             // get the string from params, which is an array
             String myString = params[0];
 
-            //semanticWebModul = new SemanticWebModul(getApplicationContext(), lon, lat, radius, configName);
+            try {
+                semanticWebModul.databaseRequest();
 
-            semanticWebModul.databaseRequest();
+                overlayItems = resourcesToOverlayItems(semanticWebModul.getDatabase().getResources());
+            } catch (Exception e) {
+                myString = e.toString();
+            }
 
-            overlayItems = resourcesToOverlayItems(semanticWebModul.getDatabase().getResources());
 
-
-            //myString = semanticWebModul.information + "\n" + semanticWebModul.geoDatabase.thinResourcesToString();
 
 
 
             int i = 100;
             publishProgress(i);
 
-            myString = semanticWebModul.getService();
+            //myString = semanticWebModul.getService();
 
 
             return myString;

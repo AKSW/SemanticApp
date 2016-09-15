@@ -19,6 +19,6 @@
     <string name="chk_latlon">Use GPS</string>
 
     <string name="text_gps">If you disable the GPS checkbox the following Coordinates are used</string>
-    <string name="text_radius">Please Enter Search Radius in km</string>
+    <string name="text_radius">Please Enter Search Radius in km (max. 100km)</string>
     <string name="text_info">Please choose one configfile from below</string>
 </resources>

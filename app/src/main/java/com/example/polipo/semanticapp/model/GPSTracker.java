@@ -17,6 +17,7 @@ import android.util.Log;
 
 /**
  * Created by polipo on 20.04.16.
+ * fork from https://stackoverflow.com/questions/1513485/how-do-i-get-the-current-gps-location-programmatically-in-android
  */
 
 public class GPSTracker extends Activity implements LocationListener {

@@ -129,7 +129,14 @@ public class SettingsActivity extends AppCompatActivity  {
 
                 //give the values back to mainmenu
                 myIntent.putExtra("configName", configName);
-                myIntent.putExtra("radius", Integer.parseInt(editRadius.getText().toString()));
+                //check if value is to big
+                if (Integer.parseInt(editRadius.getText().toString()) > 100 | Integer.parseInt(editRadius.getText().toString()) < 0) {
+                    myIntent.putExtra("radius", 1 + "");
+
+                } else {
+                    myIntent.putExtra("radius", Integer.parseInt(editRadius.getText().toString()));
+                }
+
                 if (!checkBox.isChecked()) {
                     myIntent.putExtra("useGps", false);
 

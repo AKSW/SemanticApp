@@ -7,4 +7,4 @@ Now you can build the app.
 If you only want to test the app, you can download the app-release.apk 
 file from the app folder and install it on your device.
 The app needs permission for your Network and the local storage.
-If the map isn't loading enable the network permission. 
+If the map isn't loading, enable the network permission. 
