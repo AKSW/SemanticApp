@@ -309,7 +309,7 @@ public class SemanticWebModul {
                 double myLatRadius = Math.abs(myRadius / 111);
                 double myLonRadius =   Math.abs(myRadius / (Math.cos(lat) * 111));
 
-                Toast.makeText(context, myLatRadius + " " + myLonRadius, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, myLatRadius + " " + myLonRadius, Toast.LENGTH_LONG).show();
 
 
                 resultQuery = resultQuery.replaceAll(" myLatRadius ", myLatRadius + "");
@@ -321,7 +321,7 @@ public class SemanticWebModul {
         }
 
         editedQuery = resultQuery;
-        Toast.makeText(context, "Query ready", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Query ready", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -1,0 +1,6 @@
+{
+	"service": "http://dbpedia.org/sparql",
+	"query": "PREFIX geo: pos#> PREFIX dbo: <http://dbpedia.org/ontology/> SELECT ??s geo:la. ?s geo:long ?lFILTER ( (?l( myLon - myLonRadius )) && ( ?long <= ( myLon + myLonRadius )) && (?lat >= ( myLat - myLatRadius )) && (?lat <= ( myLat + myLatRadius ))) }",
+	"queryBuilderId":1,
+	"routineId": 0
+}

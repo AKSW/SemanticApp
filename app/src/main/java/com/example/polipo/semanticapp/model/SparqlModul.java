@@ -11,6 +11,8 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,12 +59,15 @@ class SparqlModul {
 
         ArrayList<String> results = new ArrayList<String>();
 
-        while (rs.hasNext()) {
-            QuerySolution qs = rs.next();
-            //results.add(qs.getResource("?s").getLocalName()); //returns wayXYZ123456
-            //results.add(qs.getResource("?s").getNameSpace()); //returns Prefix http://linkeddata.org/triplify/
-            results.add(qs.get("?s").toString()); //returns http://linkeddata.org/triplify/wayXYZ123456
-       }
+        if (rs != null) {
+            while (rs.hasNext()) {
+                QuerySolution qs = rs.next();
+                //results.add(qs.getResource("?s").getLocalName()); //returns wayXYZ123456
+                //results.add(qs.getResource("?s").getNameSpace()); //returns Prefix http://linkeddata.org/triplify/
+                results.add(qs.get("?s").toString()); //returns http://linkeddata.org/triplify/wayXYZ123456
+            }
+        }
+
 
         return results;
 
@@ -100,46 +105,48 @@ class SparqlModul {
                             +  "} ";
 
                 rs = executeHttpQuery(service, myQuery);
-
-                if (rs.hasNext()) {
+                if (rs != null) {
+                    if (rs.hasNext()) {
                     /*
                  * iterate all results
                  * and add the tuples
                  */
-                    while (rs.hasNext()) {
+                        while (rs.hasNext()) {
 
-                        QuerySolution qs = rs.next();
+                            QuerySolution qs = rs.next();
 
-                        //get predicate and object
-                        String predicate = qs.get("?p").toString();
-                        String object = qs.get("?o").toString();
+                            //get predicate and object
+                            String predicate = qs.get("?p").toString();
+                            String object = qs.get("?o").toString();
 
-                        if (predicate.contains("http://www.w3.org/2003/01/geo/wgs84_pos#lat")) {
-                            latExists = true;
+                            if (predicate.contains("http://www.w3.org/2003/01/geo/wgs84_pos#lat")) {
+                                latExists = true;
+                            }
+                            if (predicate.contains("http://www.w3.org/2003/01/geo/wgs84_pos#lon")) {
+                                lonExists = true;
+                            }
+
+                            //generate new tuple with predicate and object
+                            Tuple tuple =  new Tuple(predicate, object);
+
+                            myResource.addAttribute(tuple);
                         }
-                        if (predicate.contains("http://www.w3.org/2003/01/geo/wgs84_pos#lon")) {
-                            lonExists = true;
-                        }
-
-                        //generate new tuple with predicate and object
-                        Tuple tuple =  new Tuple(predicate, object);
-
-                        myResource.addAttribute(tuple);
-                    }
-                    if ((!latExists) && (!lonExists)) {
+                        if ((!latExists) && (!lonExists)) {
                     /*
                      * add Geo
                      */
 
-                        GeoCoordinates geo = requestGeoCoordinatesForSubject(subject, service);
+                            GeoCoordinates geo = requestGeoCoordinatesForSubject(subject, service);
 
 
-                        Tuple wgs84Lat = new Tuple("http://www.w3.org/2003/01/geo/wgs84_pos#lat", String.valueOf(geo.getLat()) + "");
-                        Tuple wgs84Lon = new Tuple("http://www.w3.org/2003/01/geo/wgs84_pos#lon", String.valueOf(geo.getLon()) + "");
-                        myResource.addAttribute(wgs84Lat);
-                        myResource.addAttribute(wgs84Lon);
-                        Log.e("Resource:", myResource.getSubject() + " lat:"  + myResource.getCoordinates().getLat() + " lon:" + myResource.getCoordinates().getLon() + "");
-                    }
+                            Tuple wgs84Lat = new Tuple("http://www.w3.org/2003/01/geo/wgs84_pos#lat", String.valueOf(geo.getLat()) + "");
+                            Tuple wgs84Lon = new Tuple("http://www.w3.org/2003/01/geo/wgs84_pos#lon", String.valueOf(geo.getLon()) + "");
+                            myResource.addAttribute(wgs84Lat);
+                            myResource.addAttribute(wgs84Lon);
+                            Log.e("Resource:", myResource.getSubject() + " lat:"  + myResource.getCoordinates().getLat() + " lon:" + myResource.getCoordinates().getLon() + "");
+                        }
+                }
+
 
 
                     latExists = false;
@@ -219,9 +226,12 @@ class SparqlModul {
                 + "<" + subject + "> geom:geometry [ ogc:asWKT ?geo ] . "  //important to make < uri >
                 + "} ";
         ResultSet rs = executeHttpQuery(service, myQuery);
-        while (rs.hasNext()) {
-            return new GeoTool().stringToLatLon(rs.next().get("?geo").toString());
+        if (rs!=null) {
+            while (rs.hasNext()) {
+                return new GeoTool().stringToLatLon(rs.next().get("?geo").toString());
+            }
         }
+
         return null;
     }
     /**
@@ -233,6 +243,7 @@ class SparqlModul {
     private ResultSet executeHttpQuery(final String service, final String query) {
         try {
             QueryExecution vqe = new QueryEngineHTTP(service, query);
+
             ResultSet results = vqe.execSelect();
             return results;
         } catch (Exception e) {

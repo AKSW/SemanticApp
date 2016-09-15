@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
@@ -277,7 +278,7 @@ public class MainMenu extends AppCompatActivity {
 
         if (id == R.id.action_run) {
             try {
-                new SemanticFunktions().execute("hello");
+                new SemanticFunktions().execute("");
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.toString(),
                         Toast.LENGTH_LONG).show();
@@ -337,15 +338,19 @@ public class MainMenu extends AppCompatActivity {
 
             try {
                 semanticWebModul.databaseRequest();
-
                 overlayItems = resourcesToOverlayItems(semanticWebModul.getDatabase().getResources());
+
+                //if something went wrong
+                if (semanticWebModul.getDatabase().databaseIsEmty()) {
+                    myString = "Something went wrong. Is the SPARQL Endpoint down, or do you have a typo in the Query?";
+                }
+                if (!semanticWebModul.getDatabase().databaseIsEmty()) {
+                    myString = "It work's!";
+                }
             } catch (Exception e) {
                 myString = e.toString();
+                Log.e("Exception" , e.toString());
             }
-
-
-
-
 
             int i = 100;
             publishProgress(i);
@@ -368,11 +373,8 @@ public class MainMenu extends AppCompatActivity {
         @Override
         protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            information = result;
             redrawMap();
-            Toast.makeText(getApplicationContext(), "Query done!", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-
+            Toast.makeText(getApplicationContext(), "Done!" + '\n' + result , Toast.LENGTH_LONG).show();
         }
     }
 
